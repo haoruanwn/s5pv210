@@ -39,20 +39,20 @@ add_compile_options(
 add_executable(${PROJECT_NAME}
     main.c
     start.S
-    key/key.c
-    led/led.c
-    uart/uart.c
-    timer/timer.c
-    clock/clock.c
+    src/key/key.c
+    src/led/led.c
+    src/uart/uart.c
+    src/timer/timer.c
+    src/clock/clock.c
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
     "${CMAKE_SOURCE_DIR}"  
-    "${CMAKE_SOURCE_DIR}/key/"   
-    "${CMAKE_SOURCE_DIR}/led/"
-    "${CMAKE_SOURCE_DIR}/uart/" 
-    "${CMAKE_SOURCE_DIR}/timer/" 
-    "${CMAKE_SOURCE_DIR}/clock/" 
+    "${CMAKE_SOURCE_DIR}/src/key/"   
+    "${CMAKE_SOURCE_DIR}/src/led/"
+    "${CMAKE_SOURCE_DIR}/src/uart/" 
+    "${CMAKE_SOURCE_DIR}/src/timer/" 
+    "${CMAKE_SOURCE_DIR}/src/clock/" 
 )
 
 message(STATUS "CMakeLists.txt: Defined ${PROJECT_NAME} executable.")
