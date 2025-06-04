@@ -11,6 +11,8 @@ set(CROSS_COMPILER_PREFIX /home/hao/tools/toolchains/gcc-linaro-4.9.4-2017.01-x8
 
 set(CMAKE_C_COMPILER ${CROSS_COMPILER_PREFIX}gcc)
 set(CMAKE_ASM_COMPILER ${CROSS_COMPILER_PREFIX}gcc)  # Use gcc for assembly as well
+set(CMAKE_OBJCOPY ${CROSS_COMPILER_PREFIX}objcopy)
+set(CMAKE_OBJDUMP ${CROSS_COMPILER_PREFIX}objdump)
 
 # Set the sysroot if necessary (often needed for includes and libraries)
 # Example: set(CMAKE_SYSROOT /home/hao/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/arm-rockchip830-linux-uclibcgnueabihf/sysroot)

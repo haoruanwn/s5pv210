@@ -15,37 +15,39 @@ include(${CMAKE_SOURCE_DIR}/toolchain-arm-linaro.cmake)
 
 # --- Compiler Flags (Project-Wide) ---
 add_compile_options(
-    -O3 -g0
+    -nostdlib # 裸机程序，不使用标准库
+    # -O3 -g0
     # C Specific
-    $<$<COMPILE_LANGUAGE:C>:-std=c99>
+    # $<$<COMPILE_LANGUAGE:C>:-std=c99>
     # C++ Specific
-    # $<$<COMPILE_LANGUAGE:CXX>:-std=c++17> # 例如
+    # $<$<COMPILE_LANGUAGE:CXX>:-std=c++17>
 
     # Common Warnings
-    -Wall -Wshadow -Wundef -Wmissing-prototypes -Wno-discarded-qualifiers -Wextra
-    -Wno-unused-function -Wno-error=strict-prototypes -Wpointer-arith -fno-strict-aliasing
-    -Wno-error=cpp -Wuninitialized -Wmaybe-uninitialized -Wno-unused-parameter
-    -Wno-missing-field-initializers -Wtype-limits -Wsizeof-pointer-memaccess
-    -Wno-format-nonliteral -Wno-cast-qual -Wunreachable-code -Wno-switch-default
-    -Wreturn-type -Wmultichar -Wformat-security -Wno-ignored-qualifiers
-    -Wno-error=pedantic -Wno-sign-compare -Wno-error=missing-prototypes
-    -Wdouble-promotion -Wclobbered -Wdeprecated -Wempty-body -Wtype-limits
-    -Wshift-negative-value -Wstack-usage=2048 -Wno-unused-value
+    # -Wall -Wshadow -Wundef -Wmissing-prototypes -Wno-discarded-qualifiers -Wextra
+    # -Wno-unused-function -Wno-error=strict-prototypes -Wpointer-arith -fno-strict-aliasing
+    # -Wno-error=cpp -Wuninitialized -Wmaybe-uninitialized -Wno-unused-parameter
+    # -Wno-missing-field-initializers -Wtype-limits -Wsizeof-pointer-memaccess
+    # -Wno-format-nonliteral -Wno-cast-qual -Wunreachable-code -Wno-switch-default
+    # -Wreturn-type -Wmultichar -Wformat-security -Wno-ignored-qualifiers
+    # -Wno-error=pedantic -Wno-sign-compare -Wno-error=missing-prototypes
+    # -Wdouble-promotion -Wclobbered -Wdeprecated -Wempty-body -Wtype-limits
+    # -Wshift-negative-value -Wstack-usage=2048 -Wno-unused-value
 )
 
-
+# --- Source Files ---
+# Collect all source files in the src directory
+file(GLOB_RECURSE SRC_SOURCE 
+    "${CMAKE_SOURCE_DIR}/src/*.c"
+)
 
 # --- Define the project executable ---
 add_executable(${PROJECT_NAME}
     main.c
     start.S
-    src/key/key.c
-    src/led/led.c
-    src/uart/uart.c
-    src/timer/timer.c
-    src/clock/clock.c
+    ${SRC_SOUCRE} 
 )
 
+# --- Include Directories ---
 target_include_directories(${PROJECT_NAME} PUBLIC 
     "${CMAKE_SOURCE_DIR}"  
     "${CMAKE_SOURCE_DIR}/src/key/"   
@@ -55,7 +57,38 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "${CMAKE_SOURCE_DIR}/src/clock/" 
 )
 
+# --- Linker Script --- 
+target_link_options(${PROJECT_NAME} PRIVATE
+    -nostdlib
+    "-Wl,-Ttext=0xd0020010"
+)
+
+# --- Custom commands ---
+# generate .bin .dis .elf files
+add_custom_command(
+    TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${PROJECT_NAME}> ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.bin
+    COMMENT "Generating ${PROJECT_NAME}.bin from $<TARGET_FILE_NAME:${PROJECT_NAME}>"
+    VERBATIM
+)
+
+add_custom_command(
+    TARGET ${PROJECT_NAME}
+    POST_BUILD
+    COMMAND ${CMAKE_OBJDUMP} -D $<TARGET_FILE:${PROJECT_NAME}> > ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${PROJECT_NAME}.dis
+    COMMENT "Generating ${PROJECT_NAME}.dis from $<TARGET_FILE_NAME:${PROJECT_NAME}>"
+    VERBATIM
+)
+
+# --- message output ---
 message(STATUS "CMakeLists.txt: Defined ${PROJECT_NAME} executable.")
 message(STATUS "Top-Level CMake: CMAKE_C_COMPILER: ${CMAKE_C_COMPILER}")
 message(STATUS "Top-Level CMake: CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
 message(STATUS "Top-Level CMake: Output directory for executables: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+
+get_target_property(TARGET_LINK_OPTIONS ${PROJECT_NAME} LINK_OPTIONS)
+message(STATUS "Top-Level CMake: Target ${PROJECT_NAME} LINK_OPTIONS: ${TARGET_LINK_OPTIONS}")
+message(STATUS "Top-Level CMake: CMAKE_OBJCOPY: ${CMAKE_OBJCOPY}")
+message(STATUS "Top-Level CMake: CMAKE_OBJDUMP: ${CMAKE_OBJDUMP}")
+message(STATUS "Top-Level CMake: CROSS_COMPILER_PREFIX from toolchain: ${CROSS_COMPILER_PREFIX}")
