@@ -47,9 +47,25 @@ void tone(unsigned char i) {
     GPD0CON &= ~(0xF << 8); // Stop PWM output
 }
 
+// void music() {
+//     int notes[] = {5, 3, 8, 0, 6, 8, 12, 0, 5, 1, 3, 2, 2, 0, 5, 3, 8, 7, 6, 8, 5, 0, 12, 9, 11, 7, 8, 0, 6, 8, 8, 0, 7, 6, 8, 0, 6, 8, 6, 3, 2, 0, 5, 3, 8, 7, 6, 8, 5, 0, 12, 9, 11, 7, 8, 0};
+//     for (int i = 0; i < sizeof(notes)/sizeof(notes[0]); i++) {
+//         tone(notes[i]);
+//     }
+// }
+
 void music() {
     int notes[] = {5, 3, 8, 0, 6, 8, 12, 0, 5, 1, 3, 2, 2, 0, 5, 3, 8, 7, 6, 8, 5, 0, 12, 9, 11, 7, 8, 0, 6, 8, 8, 0, 7, 6, 8, 0, 6, 8, 6, 3, 2, 0, 5, 3, 8, 7, 6, 8, 5, 0, 12, 9, 11, 7, 8, 0};
-    for (int i = 0; i < sizeof(notes)/sizeof(notes[0]); i++) {
+    int i;  // 提前声明变量
+    for (i = 0; i < sizeof(notes)/sizeof(notes[0]); i++) {
         tone(notes[i]);
     }
+}
+
+
+void *memcpy(void *dest, const void *src, unsigned int n) {
+    char *d = dest;
+    const char *s = src;
+    while (n--) *d++ = *s++;
+    return dest;
 }

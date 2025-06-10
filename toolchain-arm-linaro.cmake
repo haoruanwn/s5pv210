@@ -14,6 +14,10 @@ set(CMAKE_ASM_COMPILER ${CROSS_COMPILER_PREFIX}gcc)  # Use gcc for assembly as w
 set(CMAKE_OBJCOPY ${CROSS_COMPILER_PREFIX}objcopy)
 set(CMAKE_OBJDUMP ${CROSS_COMPILER_PREFIX}objdump)
 
+# 设置 C 标准为 C99
+# set(CMAKE_C_STANDARD 99)
+# set(CMAKE_C_STANDARD_REQUIRED ON)
+
 # Set the sysroot if necessary (often needed for includes and libraries)
 # Example: set(CMAKE_SYSROOT /home/hao/luckfox-pico/tools/linux/toolchain/arm-rockchip830-linux-uclibcgnueabihf/arm-rockchip830-linux-uclibcgnueabihf/sysroot)
 # If your toolchain handles sysroot implicitly, you might not need this.

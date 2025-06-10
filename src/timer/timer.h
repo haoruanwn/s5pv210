@@ -5,5 +5,6 @@ void delay(volatile unsigned long dly);
 void pwm_init(int tone_val);
 void tone(unsigned char i);
 void music(void);
+void *memcpy(void *dest, const void *src, unsigned int n);
 
 #endif //TIMER_H

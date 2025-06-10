@@ -16,15 +16,20 @@ include(${CMAKE_SOURCE_DIR}/toolchain-arm-linaro.cmake)
 
 # --- Source Files ---
 # Collect all source files in the src directory
-file(GLOB_RECURSE SRC_SOURCE 
-    "${CMAKE_SOURCE_DIR}/src/*.c"
-)
+# file(GLOB_RECURSE SRC_SOURCE 
+#     "${CMAKE_SOURCE_DIR}/src/*.c"
+# )
 
 # --- Define the project executable ---
 add_executable(${PROJECT_NAME}
-    ${SRC_SOUCRE} 
     main.c
     start.S
+    # 添加 src 目录下的源文件
+    src/clock/clock.c
+    src/key/key.c
+    src/led/led.c
+    src/timer/timer.c
+    src/uart/uart.c
 )
 
 # --- Include Directories ---
