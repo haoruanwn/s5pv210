@@ -9,7 +9,7 @@
         },
         {
             "label": "$(tools) Build",
-            "task": "用ninja编译",
+            "task": "编译",
             "tooltip": "Build the project"
         },
         {

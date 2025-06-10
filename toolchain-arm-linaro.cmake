@@ -24,3 +24,24 @@ set(CMAKE_OBJDUMP ${CROSS_COMPILER_PREFIX}objdump)
 # set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 # set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 # set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+
+# --- Compiler Flags (Project-Wide) ---
+add_compile_options(
+    -nostdlib # 裸机程序，不使用标准库
+    # -O3 -g0
+    # C Specific
+    # $<$<COMPILE_LANGUAGE:C>:-std=c99>
+    # C++ Specific
+    # $<$<COMPILE_LANGUAGE:CXX>:-std=c++17>
+
+    # Common Warnings
+    # -Wall -Wshadow -Wundef -Wmissing-prototypes -Wno-discarded-qualifiers -Wextra
+    # -Wno-unused-function -Wno-error=strict-prototypes -Wpointer-arith -fno-strict-aliasing
+    # -Wno-error=cpp -Wuninitialized -Wmaybe-uninitialized -Wno-unused-parameter
+    # -Wno-missing-field-initializers -Wtype-limits -Wsizeof-pointer-memaccess
+    # -Wno-format-nonliteral -Wno-cast-qual -Wunreachable-code -Wno-switch-default
+    # -Wreturn-type -Wmultichar -Wformat-security -Wno-ignored-qualifiers
+    # -Wno-error=pedantic -Wno-sign-compare -Wno-error=missing-prototypes
+    # -Wdouble-promotion -Wclobbered -Wdeprecated -Wempty-body -Wtype-limits
+    # -Wshift-negative-value -Wstack-usage=2048 -Wno-unused-value
+)

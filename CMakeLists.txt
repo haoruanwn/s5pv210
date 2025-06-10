@@ -13,26 +13,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)             # Enable compile command to 
 # --- Toolchain Configuration ---
 include(${CMAKE_SOURCE_DIR}/toolchain-arm-linaro.cmake)
 
-# --- Compiler Flags (Project-Wide) ---
-add_compile_options(
-    -nostdlib # 裸机程序，不使用标准库
-    # -O3 -g0
-    # C Specific
-    # $<$<COMPILE_LANGUAGE:C>:-std=c99>
-    # C++ Specific
-    # $<$<COMPILE_LANGUAGE:CXX>:-std=c++17>
-
-    # Common Warnings
-    # -Wall -Wshadow -Wundef -Wmissing-prototypes -Wno-discarded-qualifiers -Wextra
-    # -Wno-unused-function -Wno-error=strict-prototypes -Wpointer-arith -fno-strict-aliasing
-    # -Wno-error=cpp -Wuninitialized -Wmaybe-uninitialized -Wno-unused-parameter
-    # -Wno-missing-field-initializers -Wtype-limits -Wsizeof-pointer-memaccess
-    # -Wno-format-nonliteral -Wno-cast-qual -Wunreachable-code -Wno-switch-default
-    # -Wreturn-type -Wmultichar -Wformat-security -Wno-ignored-qualifiers
-    # -Wno-error=pedantic -Wno-sign-compare -Wno-error=missing-prototypes
-    # -Wdouble-promotion -Wclobbered -Wdeprecated -Wempty-body -Wtype-limits
-    # -Wshift-negative-value -Wstack-usage=2048 -Wno-unused-value
-)
 
 # --- Source Files ---
 # Collect all source files in the src directory
@@ -42,9 +22,9 @@ file(GLOB_RECURSE SRC_SOURCE
 
 # --- Define the project executable ---
 add_executable(${PROJECT_NAME}
+    ${SRC_SOUCRE} 
     main.c
     start.S
-    ${SRC_SOUCRE} 
 )
 
 # --- Include Directories ---

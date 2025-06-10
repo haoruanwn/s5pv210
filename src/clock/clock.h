@@ -1,8 +1,6 @@
-#ifndef UART_H
-#define UART_H
+#ifndef CLOCK_H
+#define CLOCK_H
 
+void clock_init(void);
 
-
-
-
-#endif // UART_H
+#endif //CLOCK_H
