@@ -1,9 +1,9 @@
 #include "s5pv210.h"
-#include "src/uart/uart.h"
-#include "src/led/led.h"
-#include "src/key/key.h"
-#include "src/timer/timer.h"
-#include "src/clock/clock.h"
+#include "uart.h"
+#include "led.h"
+#include "key.h"
+#include "timer.h"
+#include "clock.h"
 
 
 void receive() {
@@ -18,7 +18,6 @@ void receive() {
         puts("\r\nMusic finished.\r\n");
     }
 }
-
 
 int main(void) {
     clock_init();

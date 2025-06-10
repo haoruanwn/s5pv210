@@ -1,4 +1,4 @@
-#include "../../s5pv210.h"
+#include "s5pv210.h"
 #include "uart.h"
 
 void uart0_init(void){

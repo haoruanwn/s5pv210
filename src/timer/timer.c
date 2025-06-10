@@ -1,4 +1,4 @@
-#include "../../s5pv210.h"
+#include "s5pv210.h"
 #include "timer.h"
 
 void delay(volatile unsigned long dly) {
@@ -25,10 +25,12 @@ void pwm_init(int tone_val) {
     // TCNTB2 values for different notes
     // Frequency = Timer Clock / TCNTB2
     int tcntb_values[] = {0, 241, 214, 191, 180, 161, 143, 127, 124, 110, 98, 93, 82, 74, 65};
+    int tcmpb_values[] = {0, 24, 21, 19, 18, 16, 14, 13, 12, 11, 10, 9, 8, 7, 6};
 
     if (tone_val >= 0 && tone_val <= 14) {
         TCNTB2 = tcntb_values[tone_val];
-        TCMPB2 = TCNTB2 / 2; // 50% duty cycle
+        // TCMPB2 = TCNTB2 / 2; // 50% duty cycle
+        TCMPB2 = tcmpb_values[tone_val]; 
     } else {
         TCNTB2 = 0;
         TCMPB2 = 0;

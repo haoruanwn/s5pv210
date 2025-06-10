@@ -1,4 +1,4 @@
-#include "../../s5pv210.h"
+#include "s5pv210.h"
 #include "clock.h"
 
 void clock_init()

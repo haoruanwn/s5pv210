@@ -1,6 +1,6 @@
-#include "../../s5pv210.h"
+#include "s5pv210.h"
 #include "led.h"
-#include "../timer/timer.h"
+#include "timer.h"
 
 void led_init(void) {
     // Configure GPJ2[0-3] as output pins

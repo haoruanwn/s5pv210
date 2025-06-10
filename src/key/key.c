@@ -1,8 +1,8 @@
-#include "../../s5pv210.h"
+#include "s5pv210.h"
 #include "key.h"
-#include "../timer/timer.h"
-#include "../led/led.h"
-#include "../uart/uart.h"
+#include "timer.h"
+#include "led.h"
+#include "uart.h"
 
 static void clear_int_pend(void) {
     EXT_INT_0_PEND |= (1 << 2); // Clear EXT_INT[2] pending bit
