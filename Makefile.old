@@ -1,0 +1,11 @@
+test.bin: start.o clock.o uart.o test.o
+	arm-linux-ld -Ttext 0xD0020010 -o test.elf $^
+	arm-linux-objcopy -O binary test.elf test.bin
+	arm-linux-objdump -D test.elf > test.dis
+%.o: %.c
+	arm-linux-gcc -nostdlib -c $< -o $@
+%.o: %.S
+	arm-linux-gcc -nostdlib -c $^ -o $@
+
+clean:
+	rm *.o *.elf *.bin *.dis

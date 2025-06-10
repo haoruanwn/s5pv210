@@ -4,3 +4,9 @@ build/
 !.vscode/tasks.json
 .idea
 cmake-build-debug/
+
+# Ignore all .bin, .o, .dis, .elf files
+*.bin
+*.o
+*.dis
+*.elf
